@@ -1,0 +1,23 @@
+Name,Cost,Type,Peelable,Pitable,Needs Washed
+Orange,0.5,FRUIT,TRUE,,
+Apple,0.25,FRUIT,,TRUE,
+Pineapple,0.75,FRUIT,TRUE,TRUE,
+Banana,0.1,FRUIT,TRUE,,
+Strawberry,0.4,FRUIT,,,TRUE
+Mango,1,FRUIT,TRUE,TRUE,
+Guava,1,FRUIT,TRUE,TRUE,
+Passion Fruit,1.1,FRUIT,TRUE,,
+Pomegranate,0.9,FRUIT,TRUE,,
+Watermelon,0.1,FRUIT,TRUE,,
+Acai,1.05,FRUIT,,,TRUE
+Blueberry,0.2,FRUIT,,,TRUE
+Carrot,0.35,VEGETABLE,TRUE,,
+Celery,0.05,VEGETABLE,,,TRUE
+Tomato,0.25,VEGETABLE,,,TRUE
+Radish,0.02,VEGETABLE,,,TRUE
+Kale,0.6,VEGETABLE,,,TRUE
+Spinach,0.2,VEGETABLE,,,TRUE
+Ice,0,MISC,,,
+Water,0,BASE,,,
+Milk,0.1,BASE,,,
+Yogurt,0.1,BASE,,,
