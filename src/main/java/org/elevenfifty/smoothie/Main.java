@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.elevenfifty.smoothie.beans.Recipe;
 import org.elevenfifty.smoothie.decoratored.beans.Smoothie;
+import org.elevenfifty.smoothie.util.PrettyPrinter;
 
 
 public class Main {
@@ -17,9 +18,7 @@ public class Main {
 		// Recipe Example
 		Recipe r = config.getRecipe("Best Smoothie");
 
-		logger.info(printPretty("Ingredients:", r.getIngredients()));
-		logger.info(printPretty("Instructions:", r.getInstructions()));
-		logger.info(r.getCost());
+		PrettyPrinter.print(r);
 
 		// Decorator Pattern Example
 		Smoothie s = new Smoothie(config.getIngredient("Orange"));
@@ -28,6 +27,10 @@ public class Main {
 		logger.info(printPretty("Ingredients:", s.getIngredients()));
 		logger.info(printPretty("Instructions:", s.getInstructions()));
 		logger.info(s.getCost());
+		
+		Browser browser = new Browser(config);
+		browser.displayRecipes();
+		PrettyPrinter.print(browser.readRecipe());
 	}
 
 	private static String printPretty(String preamble, List<? extends Object> lines) {

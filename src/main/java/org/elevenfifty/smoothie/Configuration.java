@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,9 +16,10 @@ import org.elevenfifty.smoothie.beans.Recipe;
 
 public class Configuration {
 
-	Map<String, Ingredient> ingredients = new HashMap<>();
-	Map<String, Recipe> recipes = new HashMap<>();
-
+	List<Ingredient> ingredients = new ArrayList<>();
+	List<Recipe> recipes = new ArrayList<>();
+	Map<String, Ingredient> ingredientMap = new HashMap<>();
+	Map<String, Recipe> recipeMap = new HashMap<>();
 	private Configuration() {
 	}
 
@@ -34,12 +34,14 @@ public class Configuration {
 			for (String[] row = csv.readRow(); row != null; row = csv.readRow()) {
 				Recipe recipe = new Recipe();
 				recipe.setName(row[0]);
+				System.out.println("Loaded: " + recipe.getName());
 				List<Ingredient> ingredients = new ArrayList<>(row.length - 1);
 				for (int i = 1; i < row.length; i++) {
 					ingredients.add(getIngredient(row[i]));
 				}
 				recipe.setIngredients(ingredients);
-				recipes.put(recipe.getName(), recipe);
+				recipeMap.put(recipe.getName(), recipe);
+				recipes.add(recipe);
 			}
 		}
 	}
@@ -63,25 +65,34 @@ public class Configuration {
 				ingredient.setName(row.get("Name"));
 				ingredient.setCost(Double.valueOf(row.get("Cost")));
 				ingredient.setType(Type.valueOf(row.get("Type")));
-				ingredients.put(ingredient.getName(), ingredient);
+				ingredientMap.put(ingredient.getName(), ingredient);
+				ingredients.add(ingredient);
 			}
 		}
 	}
 
-	public Collection<Ingredient> listIngredients() {
-		return ingredients.values();
+	public List<Ingredient> listIngredients() {
+		return ingredients;
 	}
 
-	public Collection<Recipe> listRecipes() {
-		return recipes.values();
+	public List<Recipe> listRecipes() {
+		return recipes;
 	}
 
 	public Ingredient getIngredient(String name) {
-		return ingredients.get(name);
+		return ingredientMap.get(name);
+	}
+
+	public Ingredient getIngredient(int index) {
+		return ingredients.get(index);
 	}
 
 	public Recipe getRecipe(String name) {
-		return recipes.get(name);
+		return recipeMap.get(name);
+	}
+
+	public Recipe getRecipe(int index) {
+		return recipes.get(index);
 	}
 
 	public static Configuration configure(String recipeFilename, String ingredientFilename)
