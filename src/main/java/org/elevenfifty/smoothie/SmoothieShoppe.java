@@ -1,48 +1,52 @@
 package org.elevenfifty.smoothie;
 
-import java.io.IOException;
-import java.util.List;
+import static org.elevenfifty.smoothie.util.Inventory.hasSufficientInventory;
 
-import org.apache.log4j.Logger;
+import java.io.IOException;
+import java.util.InputMismatchException;
+
+
 import org.elevenfifty.smoothie.beans.Recipe;
-import org.elevenfifty.smoothie.decoratored.beans.Smoothie;
 import org.elevenfifty.smoothie.util.PrettyPrinter;
 
 
 public class SmoothieShoppe {
-	private static final Logger logger = Logger.getLogger(SmoothieShoppe.class);
-
 	public static void main(String[] args) throws IOException {
 		Configuration config = Configuration.configure("recipes.csv", "ingredients.csv");
 
 		// Recipe Example
-		Recipe r = config.getRecipe("Best Smoothie");
+		//Recipe r = config.getRecipe("Best Smoothie");
 
-		PrettyPrinter.print(r);
+		//PrettyPrinter.print(r);
 
 		// Decorator Pattern Example
-		Smoothie s = new Smoothie(config.getIngredient("Orange"));
-		s = new Smoothie(config.getIngredient("Banana"), s);
+		//Smoothie s = new Smoothie(config.getIngredient("Orange"));
+		//s = new Smoothie(config.getIngredient("Banana"), s);
 
-		logger.info(printPretty("Ingredients:", s.getIngredients()));
-		logger.info(printPretty("Instructions:", s.getInstructions()));
-		logger.info(s.getCost());
+		//logger.info(printPretty("Ingredients:", s.getIngredients()));
+		//logger.info(printPretty("Instructions:", s.getInstructions()));
+		//logger.info(s.getCost());
 		
 		Browser browser = new Browser(config);
-		browser.displayRecipes();
-		Recipe selectedRecipe = browser.readRecipe();
-		selectedRecipe.consumeIngredients();
-		PrettyPrinter.print(selectedRecipe);
-	}
+		try {
+			while (true) {
+				browser.displayRecipes();
+				Recipe selectedRecipe = browser.readRecipe();
 
-	private static String printPretty(String preamble, List<? extends Object> lines) {
-		StringBuffer b = new StringBuffer(preamble);
-		b.append("\n");
-		for (Object line : lines) {
-			b.append("\t");
-			b.append(line.toString());
-			b.append("\n");
-		}
-		return b.toString();
+				if (hasSufficientInventory(selectedRecipe)) {
+					selectedRecipe.consumeIngredients();
+					PrettyPrinter.print(selectedRecipe);
+				} else {
+					System.out.println("Insufficient Inventory");
+				}
+			}
+		} catch (InputMismatchException e) {
+			// Non-integer entered
+		}	
+		//browser.displayRecipes();
+		//Recipe selectedRecipe = browser.readRecipe();
+		//selectedRecipe.consumeIngredients();
+		//PrettyPrinter.print(selectedRecipe);
+	//}
 	}
 }
