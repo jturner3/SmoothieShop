@@ -13,4 +13,6 @@ public interface Item {
 	public double getCost();
 
 	public List<Ingredient> getIngredients();
+	
+	public void consumeIngredients();
 }

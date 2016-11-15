@@ -9,8 +9,8 @@ import org.elevenfifty.smoothie.decoratored.beans.Smoothie;
 import org.elevenfifty.smoothie.util.PrettyPrinter;
 
 
-public class Main {
-	private static final Logger logger = Logger.getLogger(Main.class);
+public class SmoothieShoppe {
+	private static final Logger logger = Logger.getLogger(SmoothieShoppe.class);
 
 	public static void main(String[] args) throws IOException {
 		Configuration config = Configuration.configure("recipes.csv", "ingredients.csv");
@@ -30,7 +30,9 @@ public class Main {
 		
 		Browser browser = new Browser(config);
 		browser.displayRecipes();
-		PrettyPrinter.print(browser.readRecipe());
+		Recipe selectedRecipe = browser.readRecipe();
+		selectedRecipe.consumeIngredients();
+		PrettyPrinter.print(selectedRecipe);
 	}
 
 	private static String printPretty(String preamble, List<? extends Object> lines) {
