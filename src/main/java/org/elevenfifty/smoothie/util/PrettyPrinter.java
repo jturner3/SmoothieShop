@@ -22,7 +22,7 @@ public final class PrettyPrinter {
 		return b.toString();
 	}
 
-	public static void print(Item item) {
+	public static void prettyPrint(Item item) {
 		out.println();
 		out.println(item.getName());
 		out.println(printPretty("Ingredients:", item.getIngredients()));
