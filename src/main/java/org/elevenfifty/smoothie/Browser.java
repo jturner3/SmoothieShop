@@ -1,8 +1,10 @@
 package org.elevenfifty.smoothie;
 
-import java.util.Scanner;
-import static org.elevenfifty.smoothie.util.Inventory.hasSufficientInventory;
 import static java.lang.System.out;
+import static org.elevenfifty.smoothie.util.Inventory.hasSufficientInventory;
+
+import java.util.Scanner;
+
 import org.elevenfifty.smoothie.beans.Recipe;
 
 public class Browser {
@@ -29,7 +31,7 @@ public class Browser {
 
 	public Recipe readRecipe() {
 		System.out.println();
-		System.out.print("Select a Smoothie Recipe (q to quit): ");
+		System.out.print("Select a Smoothie Recipe: ");
 
 		return config.getRecipe(in.nextInt() - 1);
 	}
